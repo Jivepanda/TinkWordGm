@@ -13,6 +13,12 @@ entry = tk.Entry()
 entry.pack(pady=10)
 
 GUESS = entry.get()
+GUESS
+
+#entry.delete(0, tk.END)
+# think about frameing the window for second text box
+
+
 #button = tk.Button( text='Click Me', width=25,height=5, fg='FFC0CB',bg='#FFFFFF')
 
 window.mainloop()
