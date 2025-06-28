@@ -14,7 +14,7 @@ import random
 categories = [Colour(), City()]
 random_category = random.choice(categories)
 ADWORD = random.choice(random_category.words)
-GUESSES = random.choice([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+GUESSES = random.choice([2,3,4,5,6,7,8,9,11,15])
 guess_count = 0
 
 import tkinter as tk
@@ -34,6 +34,7 @@ greeting.pack(pady=10)
 welcome = tk.Label(text=f'''Welcome to Wonderful Word of the day, 
 Today You Have {GUESSES} Guess 
 Today's word is {len(ADWORD)}  letters long 
+and is from the {random_category.name} Category
 Guess a Word ''',
 fg="white", bg="#301934")
 welcome.pack(pady=10)
@@ -70,10 +71,5 @@ entry1.delete(0, tk.END)
 submit_btn = tk.Button(window, text="Submit Guess", command=check_guess, font=("Arial", 14))
 submit_btn.pack(pady=10)
 
-#entry.delete(0, tk.END)
-# think about frameing the window for second text box
-
-
-#button = tk.Button( text='Click Me', width=25,height=5, fg='FFC0CB',bg='#FFFFFF')
 
 window.mainloop()
