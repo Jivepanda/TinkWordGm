@@ -56,14 +56,14 @@ def check_guess():
     guess_count += 1
 
     if guess == ADWORD:
-        messagebox.showinfo("YOU WON!", f"You guessed the word '{ADWORD}' correctly!")
+        feedback.config("YOU WON!", f"You guessed the word '{ADWORD}' correctly!")
         window.destroy()  # Close the game window
     else:
         remaining = GUESSES - guess_count
         if remaining > 0:
             feedback.config(text=f"Wrong guess! You have {remaining} guesses left.")
         else:
-            messagebox.showinfo("Game Over", f"Sorry, you've run out of guesses. The word was '{ADWORD}'.")
+            feedback.config("Game Over", f"Sorry, you've run out of guesses. The word was '{ADWORD}'.")
             window.destroy()
 # Clear entry
 entry1.delete(0, tk.END)
