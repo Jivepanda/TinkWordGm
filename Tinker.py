@@ -1,52 +1,112 @@
 #testing tkinter
 #game code
+
+import random
+import tkinter as tk
+
 #Clsses for Guesses
 class Colour:
     def __init__(self):
         self.words = ("red", "green", "blue", "yellow", "magenta", "cyan")
         self.name = "Colour"
-
-
 class City:
     def __init__(self):
         self.words = ("sydney", "paris", "instanbul", "newyork", "london")
         self.name = "City"
 
-import random
-
-# variables
+# variables Global
 categories = [Colour(), City()]
 random_category = random.choice(categories)
 ADWORD = random.choice(random_category.words)
 GUESSES = random.choice([2, 3, 4, 5, 6, 7, 8, 9, 11, 15])
 guess_count = 0
 
-import tkinter as tk
-
 #creating game window
 window = tk.Tk()
-window.geometry("600x600")
+window.geometry("600x500")
 window.columnconfigure(0, minsize=250)
 window.rowconfigure([0, 1], minsize=100)
-#title for entire window
 window.title('Word game')
 window['background'] = "#301934"
 window.font = ("Arial", 20)
+
+#packs windows and buttons defined
 #top greeting
 greeting = tk.Label(text="Wonderful Word Game ", fg="white", bg="#301934", font=("Arial", 20))
 greeting.pack(pady=10)
 # Game Welcome
-welcome = tk.Label(text=f'''Welcome to Wonderful Word of the day, 
-Today You Have {GUESSES} Guess 
-Today's word is {len(ADWORD)}  letters long 
-and is from the {random_category.name} Category
-Guess a Word ''',fg="white", bg="#301934")
+welcome = tk.Label(window,fg="white", bg="#301934")
 welcome.pack(pady=10)
 # Entry widget
 entry1 = tk.Entry(window, font=("Arial", 14))
 entry1.pack(pady=10)
-#entry 1
+# Feedback label
+feedback = tk.Label(window, text="", fg="yellow", bg="#301934", font=("Arial", 12))
+feedback.pack(pady=5)
 
+#defining actions
+
+# foget the Packs /clear the screen
+def clear_widgets():
+    greeting.pack_forget()
+    welcome.pack_forget()
+    entry1.pack_forget()
+    submit_button.pack_forget()
+    feedback.pack_forget()
+    play_again_button.pack_forget()
+#playagain function
+def play_again():
+    clear_widgets()
+    start_game()
+
+    # Submit action defined outside start_game
+def submit_action(event=None):
+    guess = entry1.get().strip().lower()
+    if not guess:
+        return  # ignore empty guesses
+    check_guess()
+    entry1.delete(0, tk.END)
+# Submit button
+submit_button = tk.Button(window, text="Submit", command=submit_action)
+submit_button.pack(pady=10)
+#play again button
+play_again_button = tk.Button(window, text="Play Again", command=play_again)
+# Start or restart game function
+def start_game():
+    global ADWORD, GUESSES, guess_count, random_category
+    random_category = random.choice(categories)
+    ADWORD = random.choice(random_category.words)
+    GUESSES = random.choice([2, 3, 4, 5, 6, 7, 8, 9, 11, 15])
+    guess_count = 0
+
+    # Submit action function
+    def submit_action(event=None):
+        guess = entry1.get().strip().lower()
+        if not guess:
+            return  # ignore empty guesses
+        check_guess()
+        entry1.delete(0, tk.END)
+
+    submit_button.config(command=submit_action)
+
+    # Bind Enter key to submit_action
+    window.bind('<Return>', submit_action)
+
+    # Update welcome label text with new game info
+    welcome.config(text=f'''Welcome to Wonderful Word of the day, 
+Today You Have {GUESSES} Guesses
+Today's word is {len(ADWORD)} letters long 
+and is from the {random_category.name} Category
+Guess a Word ''')
+
+ # Pack widgets back
+    greeting.pack(pady=10)
+    welcome.pack(pady=10)
+    entry1.pack(pady=10)
+    submit_button.pack(pady=10)
+    feedback.config(text="")
+    feedback.pack(pady=5)
+    entry1.delete(0, tk.END)
 
 #fun feedback sayings
 wrong_random = [
@@ -70,24 +130,6 @@ won_random = [
     "High five! You beat the game like a pro.",
     "Game over for me, but a new legend is born—you!",
 ]
-# Feedback label
-feedback = tk.Label(window, text="", fg="yellow", bg="#301934", font=("Arial", 12))
-feedback.pack(pady=5)
-
-# Submit function
-def submit_action(event=None):
-    guess = entry1.get().strip().lower()
-    if not guess:
-        return  # ignore empty guesses
-    check_guess()
-    entry1.delete(0, tk.END)
-
-# Submit button
-submit_button = tk.Button(window, text="Submit", command=submit_action)
-submit_button.pack(pady=10)
-
-# Bind Enter key to submit_action
-window.bind('<Return>', submit_action)
 
 #checking Guess lenght and word
 def check_guess():
@@ -101,6 +143,8 @@ def check_guess():
     if guess == ADWORD:
         feedback.config(text=f'''{random.choice(won_random)}, 
         You guessed the word '{ADWORD}' correctly!''')
+        submit_button.pack_forget()
+        play_again_button.pack(pady=10)
     else:
         remaining = GUESSES - guess_count
         if remaining > 0:
@@ -110,9 +154,13 @@ def check_guess():
             """)
         else:
             feedback.config(text=f'''Game Over", Sorry, you've run out of guesses. The word was '{ADWORD}',''')
+            submit_button.pack_forget()
+            play_again_button.pack(pady=10)
 
 
-# Clear entry
-entry1.delete(0, tk.END)
+
+
+# Start the first game
+start_game()
 
 window.mainloop()
