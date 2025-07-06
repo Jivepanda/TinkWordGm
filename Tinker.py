@@ -27,21 +27,21 @@ window.geometry("400x400")
 window.columnconfigure(0, minsize=250)
 window.rowconfigure([0, 1], minsize=100)
 window.title('Word game')
-window['background'] = "#c938d1"
+window['background'] = "#4f4c4f"
 window.font = ("Arial", 20)
 
 #packs windows and buttons defined
 #top greeting
-greeting = tk.Label(text="Wonderful Word Game ", fg="white", bg="#c938d1", font=("Arial", 20))
+greeting = tk.Label(text="Wonderful Word Game ", fg="white", bg="#4f4c4f", font=("Arial", 20))
 greeting.pack(pady=10)
 # Game Welcome
-welcome = tk.Label(window,fg="white", bg="#c938d1",font=("Arial", 14))
+welcome = tk.Label(window,fg="white", bg="#4f4c4f",font=("Arial", 14))
 welcome.pack(pady=10)
 # Entry widget
 entry1 = tk.Entry(window, font=("Arial", 14))
 entry1.pack(pady=10)
 # Feedback label
-feedback = tk.Label(window, text="", fg="yellow", bg="#c938d1", font=("Arial", 12))
+feedback = tk.Label(window, text="", fg="#f55df5", bg="#4f4c4f", font=("Arial", 12))
 feedback.pack(pady=5)
 
 #defining actions
@@ -79,7 +79,7 @@ def start_game():
     GUESSES = random.choice([2, 3, 4, 5, 6, 7, 8, 9, 11, 15])
     guess_count = 0
 
-    # Submit action function
+# Submit action function
     def submit_action(event=None):
         guess = entry1.get().strip().lower()
         if not guess:
