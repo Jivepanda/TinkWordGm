@@ -23,25 +23,25 @@ guess_count = 0
 
 #creating game window
 window = tk.Tk()
-window.geometry("600x500")
+window.geometry("400x400")
 window.columnconfigure(0, minsize=250)
 window.rowconfigure([0, 1], minsize=100)
 window.title('Word game')
-window['background'] = "#301934"
+window['background'] = "#c938d1"
 window.font = ("Arial", 20)
 
 #packs windows and buttons defined
 #top greeting
-greeting = tk.Label(text="Wonderful Word Game ", fg="white", bg="#301934", font=("Arial", 20))
+greeting = tk.Label(text="Wonderful Word Game ", fg="white", bg="#c938d1", font=("Arial", 20))
 greeting.pack(pady=10)
 # Game Welcome
-welcome = tk.Label(window,fg="white", bg="#301934")
+welcome = tk.Label(window,fg="white", bg="#c938d1",font=("Arial", 14))
 welcome.pack(pady=10)
 # Entry widget
 entry1 = tk.Entry(window, font=("Arial", 14))
 entry1.pack(pady=10)
 # Feedback label
-feedback = tk.Label(window, text="", fg="yellow", bg="#301934", font=("Arial", 12))
+feedback = tk.Label(window, text="", fg="yellow", bg="#c938d1", font=("Arial", 12))
 feedback.pack(pady=5)
 
 #defining actions
@@ -97,7 +97,7 @@ def start_game():
 Today You Have {GUESSES} Guesses
 Today's word is {len(ADWORD)} letters long 
 and is from the {random_category.name} Category
-Guess a Word ''')
+Guess the Word ''')
 
  # Pack widgets back
     greeting.pack(pady=10)
